@@ -13,9 +13,23 @@ export default function LoginPage({ onLogin }) {
     e.preventDefault();
     setError("");
 
-    try {
-      const userCredential = await signInWithEmail(email, password);
+    // Only check admin email for demo purposes
+    if (email === "admin@mavericks.com") {
+      // Simulate admin user object
+      const adminUser = {
+        email: "admin@mavericks.com",
+        displayName: "Admin User",
+        role: "admin",
+        uid: "admin-demo-uid"
+      };
+      console.log("Logged in as admin:", adminUser);
+      onLogin(adminUser);
+      return;
+    }
 
+    // For other users, use normal authentication
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log("Logged in:", userCredential.user);
       onLogin(userCredential.user); // callback to parent
     } catch (err) {

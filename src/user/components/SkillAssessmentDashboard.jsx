@@ -96,8 +96,9 @@ export default function SkillAssessmentDashboard() {
   };
 
   const handleStartAssessment = (skill) => {
-    setCurrentAssessment(skill);
-    setShowAssessment(true);
+  console.log('Starting assessment for skill:', skill);
+  setCurrentAssessment(skill);
+  setShowAssessment(true);
   };
 
   const handleRetakeAssessment = (skill) => {
@@ -363,14 +364,16 @@ export default function SkillAssessmentDashboard() {
 
       {/* Assessment Modal */}
       {showAssessment && currentAssessment && (
-        <SkillAssessment
-          skill={currentAssessment}
-          onComplete={handleAssessmentComplete}
-          onClose={() => {
-            setShowAssessment(false);
-            setCurrentAssessment(null);
-          }}
-        />
+        <div style={{ zIndex: 9999, position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.5)' }}>
+          <SkillAssessment
+            skill={currentAssessment}
+            onComplete={handleAssessmentComplete}
+            onClose={() => {
+              setShowAssessment(false);
+              setCurrentAssessment(null);
+            }}
+          />
+        </div>
       )}
     </div>
   );
